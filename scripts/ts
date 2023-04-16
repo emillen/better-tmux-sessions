@@ -7,7 +7,7 @@ if [[ -z $folder_to_search ]]; then
 fi
 
 all_folders=$(find $folder_to_search -maxdepth 3 -type d  && zoxide query -l)
-folder_to_session=$(echo  "$all_folders" | fzf-tmux -p)
+folder_to_session=$(echo  "$all_folders" | fzf-tmux -p --preview 'tree -C {} | head -200')
 
 if [[ -z $folder_to_session ]]; then
     exit 0
