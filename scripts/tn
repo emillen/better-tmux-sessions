@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vim: set filtype=sh :
+# vim: set ft=sh :
 
 main () {
     local path=$1

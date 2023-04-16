@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vim: set filtype=sh :
+# vim: set ft=sh :
 
 main () {
     local session_name=$1
@@ -11,7 +11,7 @@ main () {
                 fzf-tmux -p \
                 --preview "tmux capture-pane -ep -t {}" \
                 --header "Tip: Ctrl+d to kill session" \
-                --bind "ctrl-d:reload(tmux kill-session -t {} && tmux list-sessions -F '#S' |  grep -v \"^${current_session}\$\" || true)" \
+                --bind "ctrl-d:reload(tmux kill-session -t {} &&  tmux list-sessions -F '#S' |  grep -v \"^${current_session}\$\" || true)" \
             )
     fi
 

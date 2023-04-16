@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vim: set filtype=sh :
+# vim: set ft=sh :
 
 session_exists() {
     local folder_to_session=$1
