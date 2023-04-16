@@ -28,13 +28,13 @@ The tmux binding is `prefix + C-a`.
 
 show active sessions in fzf - the selected one is opened:
 
-```
+```sh
 $ ta
 ```
 
 opens the session with the $session-name:
 
-```
+```sh
 $ ta $session-name
 ```
 
@@ -44,13 +44,13 @@ The tmux binding is `prefix + C-s`.
 
 lets you search your folders in your home directory, using fzf - selected one is opened as a session:
 
-```
+```sh
 $ ts
 ```
 
 lets you search your folders in the selected directory, using fzf - selected one is opened as a session
 
-```
+```sh
 $ ts /path/to/folder
 ```
 
@@ -60,12 +60,12 @@ No tmux binding - but i like being able to create new sessions smoothly from out
 
 opens a session from the current folder
 
-```shell
+```sh
 $ tn
 ```
 
 open a session in selected folder
 
-```shell
+```sh
 $ tn /path/to/folder
 ```
