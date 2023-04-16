@@ -1,20 +1,8 @@
 #!/usr/bin/env bash
+# vim: set filtype=sh :
 
-folder_to_search=$1
-
-if [[ -z $folder_to_search ]]; then
-    folder_to_search=~
-fi
-
-all_folders=$(find $folder_to_search -maxdepth 3 -type d  && zoxide query -l)
-folder_to_session=$(echo  "$all_folders" | fzf-tmux -p --preview 'tree -C {} | head -200')
-
-if [[ -z $folder_to_session ]]; then
-    exit 0
-fi
-
-
-has_session() {
+session_exists() {
+    local folder_to_session=$1
     if tmux has-session -t $(basename $folder_to_session) 2>/dev/null; then
         return 0
     else
@@ -23,14 +11,17 @@ has_session() {
 }
 
 switch_session() {
+    local folder_to_session=$1
     tmux switch-client -t $(basename $folder_to_session)
 }
 
 create_session() {
+    local folder_to_session=$1
     tmux new-session -s $(basename $folder_to_session) -n $(basename $folder_to_session) -d
 }
 
 attach_session() {
+    local folder_to_session=$1
     tmux attach -t $(basename $folder_to_session)
 }
 
@@ -42,23 +33,43 @@ in_tmux_session() {
     fi
 }
 
-cd $folder_to_session
+main () {
+    local folder_to_search=$1
+
+    if [[ -z $folder_to_search ]]; then
+        local folder_to_search=$HOME
+    fi
+
+    local all_folders=$(find $folder_to_search -maxdepth 3 -type d  && zoxide query -l)
+    local folder_to_session=$(echo  "$all_folders" | fzf-tmux -p --preview 'tree -C {} | head -200')
+
+    cd $folder_to_session
+
+    if [[ -z $folder_to_session ]]; then
+        exit 0
+    fi
+
+    if in_tmux_session; then
+        if session_exists $folder_to_session; then
+            switch_session $folder_to_session
+        else
+            create_session $folder_to_session
+            switch_session $folder_to_session
+        fi
+        exit 0
+    else
+        if session_exists $folder_to_session; then
+            attach_session $folder_to_session
+        else
+            create_session $folder_to_session
+            attach_session $folder_to_session
+        fi
+        exit 0
+    fi
 
 
-if in_tmux_session; then
-    if has_session; then
-        switch_session
-    else
-        create_session
-        switch_session
-    fi
-    exit 0
-else
-    if has_session; then
-        attach_session
-    else
-        create_session
-        attach_session
-    fi
-    exit 0
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
 fi

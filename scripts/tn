@@ -1,19 +1,26 @@
 #!/usr/bin/env bash
+# vim: set filtype=sh :
 
-path=$1
+main () {
+    local path=$1
 
-if [[ -z $path ]]; then
-    path=$PWD
-fi
+    if [[ -z $path ]]; then
+        path=$PWD
+    fi
 
-session=$(basename $path)
+    local session=$(basename $path)
 
-cd $path
+    cd $path
 
-tmux new-session -s ${session} -n ${session} -d
+    tmux new-session -s ${session} -n ${session} -d
 
-if [[ -z $TMUX ]]; then
-    tmux attach -t ${session}
-else
-    tmux switch-client -t ${session}
+    if [[ -z $TMUX ]]; then
+        tmux attach -t ${session}
+    else
+        tmux switch-client -t ${session}
+    fi
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
 fi
