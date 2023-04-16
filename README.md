@@ -38,6 +38,8 @@ opens the session with the $session-name:
 $ ta $session-name
 ```
 
+**Bonus**: You can Ctrl+d to kill sessions when ta is opened
+
 ### ts
 
 The tmux binding is `prefix + C-s`.
