@@ -4,9 +4,17 @@ This is just my scripts to improve life using tmux sessions.
 
 ## Installation
 
-1. This projects assumes ``~/.local/bin` is in $PATH, and places the scripts there
-2. install `fzf` and `zoxide`
-3. then run `./install.sh`
+You can install it using tpm:
+
+```sh
+set -g @plugin 'emillen/better-tmux-sessions'
+```
+
+once installed you can add the scripts folder in the plugin-path to your `$PATH` to be able to use them outside tmux
+
+```sh
+export PATH="$PATH:~/.tmux/tpm/better-tmux-sessions/scripts"
+```
 
 ## Usage
 
@@ -14,19 +22,23 @@ The scripts are meant to be used in hotkeys for tmux, in combination as commands
 
 ### ta
 
-show active sessions in fzf - the selected one is opened
+The tmux binding is `prefix + C-a`.
+
+show active sessions in fzf - the selected one is opened:
 
 ```
 $ ta
 ```
 
-opens the session with the $session-name
+opens the session with the $session-name:
 
 ```
 $ ta $session-name
 ```
 
 ### ts
+
+The tmux binding is `prefix + C-s`.
 
 lets you search your folders in your home directory, using fzf - selected one is opened as a session:
 
@@ -41,6 +53,8 @@ $ ts /path/to/folder
 ```
 
 ### tn
+
+No tmux binding - but i like being able to create new sessions smoothly from outside and inside tmux
 
 opens a session from the current folder
 
