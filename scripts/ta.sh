@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+session_name=$1
+current_session=$( [[ -n $TMUX ]] && tmux display-message -p '#S')
+
+list_cmd=""
+
+list() {
+    tmux list-sessions -F '#S' | grep -v "^${current_session}\$"
+}
+
+if [[ -z $session_name ]]; then
+    session_name=$(
+        tmux list-sessions -F '#S' | grep -v "^${current_session}\$" | \
+            fzf-tmux -p \
+            --preview "tmux capture-pane -ep -t {}" \
+            --bind "ctrl-d:reload(tmux kill-session -t {} && tmux list-sessions -F '#S' | grep -v \"^${current_session}\$\" )" \
+        )
+fi
+
+if [[ -z $session_name ]]; then
+    exit 0
+fi
+
+if [[ -z $TMUX ]]
+then
+    tmux attach -t ${session_name}
+else
+    tmux switch-client -t ${session_name}
+fi
