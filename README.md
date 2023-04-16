@@ -4,6 +4,8 @@ This is just my scripts to improve life using tmux sessions.
 
 ## Installation
 
+You need `fzf`, and `zoxide` for this to work
+
 You can install it using tpm:
 
 ```sh
