@@ -71,3 +71,9 @@ open a session in selected folder
 ```sh
 $ tn /path/to/folder
 ```
+
+open a session in selected folder, and grant it the specified session name
+
+```sh
+$ tn /path/to/folder $session_name
+```
