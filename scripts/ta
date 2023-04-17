@@ -2,28 +2,28 @@
 # vim: set ft=sh :
 
 main () {
-    local session_name=$1
-    local current_session=$( [[ -n $TMUX ]] && tmux display-message -p '#S')
+    local session_name="${1}"
+    local current_session="$( [[ -n $TMUX ]] && tmux display-message -p '#S')"
 
-    if [[ -z $session_name ]]; then
+    if [[ -z "${session_name}" ]]; then
         local session_name=$(
             tmux list-sessions -F '#S' | grep -v "^${current_session}\$" | \
                 fzf-tmux -p \
                 --preview "tmux capture-pane -ep -t {}" \
                 --header "Tip: Ctrl+d to kill session" \
-                --bind "ctrl-d:reload(tmux kill-session -t {} &&  tmux list-sessions -F '#S' |  grep -v \"^${current_session}\$\" || true)" \
-            )
+                --bind "ctrl-d:reload(tmux kill-session -t {} &&  tmux list-sessions -F '#S' |  grep -v \"^${current_session}\$\" || true)+clear-query"
+        )
     fi
 
-    if [[ -z $session_name ]]; then
+    if [[ -z "${session_name}" ]]; then
         exit 0
     fi
 
-    if [[ -z $TMUX ]]
+    if [[ -z "${TMUX}" ]]
     then
-        tmux attach -t ${session_name}
+        tmux attach -t "${session_name}"
     else
-        tmux switch-client -t ${session_name}
+        tmux switch-client -t "${session_name}"
     fi
 }
 
