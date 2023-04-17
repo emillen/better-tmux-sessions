@@ -2,22 +2,25 @@
 # vim: set ft=sh :
 
 main () {
-    local path=$1
+    local path="${1}"
+    local session="${2}"
 
-    if [[ -z $path ]]; then
-        path=$PWD
+    if [[ -z "${path}" ]]; then
+        path="${PWD}"
     fi
 
-    local session=$(basename $path)
+    if [[ -z "${session}" ]]; then
+        local session=$(basename "${path}")
+    fi
 
-    cd $path
+    cd "${path}"
 
-    tmux new-session -s ${session} -n ${session} -d
+    tmux new-session -s "${session}" -n "${session}" -d
 
-    if [[ -z $TMUX ]]; then
-        tmux attach -t ${session}
+    if [[ -z "${TMUX}" ]]; then
+        tmux attach -t "${session}"
     else
-        tmux switch-client -t ${session}
+        tmux switch-client -t "${session}"
     fi
 }
 
