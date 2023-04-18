@@ -1,11 +1,77 @@
 #!/usr/bin/env bash
 # vim: set ft=sh :
 
-main () {
-    local path="${1}"
-    local session="${2}"
+create_or_switch_session () {
+    local path="$1"
+    local session="$2"
 
-    if [[ "${session}" == "--ask-session" ]]; then
+    cd "${path}"
+
+    tmux new-session -s "${session}" -n "${session}" -d
+
+    if [[ -z "${TMUX}" ]]; then
+        tmux attach -t "=${session}"
+    else
+        tmux switch-client -t "=${session}"
+    fi
+}
+
+main () {
+    local help_text=$(cat <<EOF
+Usage: tn [options] [path] [session]
+
+Options:
+    -p, --path      Path to open in new session, defaults to current directory
+    -s, --session   Name of new session, defaults to basename of path
+    -h, --help      Show this help text
+EOF
+    )
+
+    getopt "p:s:ah" \
+        --long "path:,session:,ask-session,help" \
+        -- "$@" > /dev/null 2>&1
+
+    local positional_args=()
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -p|--path)
+                local path="${2}"
+                shift
+                ;;
+            -s|--session)
+                local session="${2}"
+                shift
+                ;;
+            -h|--help)
+                echo "${help_text}"
+                exit 0
+                ;;
+            -a|--ask-session)
+                local ask_session="true"
+                ;;
+            -*)
+                echo "${help_text}"
+                echo
+                echo "Unknown option: $1" >&2
+                exit 1
+                ;;
+            *)
+                positional_args+=("$1")
+                ;;
+        esac
+        shift
+    done
+
+    if [[ -z "${path}" ]]; then
+        local path="${positional_args[0]}"
+    fi
+
+    if [[ -z "${session}" ]]; then
+        local session="${positional_args[1]}"
+    fi
+
+    if [[ -n "${ask_session}" ]]; then
         local session="$(echo -n "" | fzf-tmux -p --prompt "Enter Session Name: " --no-info --print-query)"
         if [[ -z "${session}" ]]; then
             exit 0
@@ -20,15 +86,7 @@ main () {
         local session=$(basename "${path}")
     fi
 
-    cd "${path}"
-
-    tmux new-session -s "${session}" -n "${session}" -d
-
-    if [[ -z "${TMUX}" ]]; then
-        tmux attach -t "=${session}"
-    else
-        tmux switch-client -t "=${session}"
-    fi
+    create_or_switch_session "${path}" "${session}"
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
