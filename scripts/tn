@@ -18,9 +18,9 @@ main () {
     tmux new-session -s "${session}" -n "${session}" -d
 
     if [[ -z "${TMUX}" ]]; then
-        tmux attach -t "${session}"
+        tmux attach -t "=${session}"
     else
-        tmux switch-client -t "${session}"
+        tmux switch-client -t "=${session}"
     fi
 }
 

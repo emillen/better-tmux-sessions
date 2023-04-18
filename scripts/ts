@@ -3,12 +3,12 @@
 
 session_exists() {
     local folder_to_session="${1}"
-    tmux has-session -t $(basename "${folder_to_session}")
+    tmux has-session -t "=$(basename "${folder_to_session}")"
 }
 
 switch_session() {
     local folder_to_session="${1}"
-    tmux switch-client -t $(basename "${folder_to_session}")
+    tmux switch-client -t "=$(basename "${folder_to_session}")"
 }
 
 create_session() {
@@ -18,7 +18,7 @@ create_session() {
 
 attach_session() {
     local folder_to_session="${1}"
-    tmux attach -t $(basename "${folder_to_session}")
+    tmux attach -t "=$(basename "${folder_to_session}")"
 }
 
 in_tmux_session() {

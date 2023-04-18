@@ -9,7 +9,7 @@ main () {
         local session_name=$(
             tmux list-sessions -F '#S' | grep -v "^${current_session}\$" | \
                 fzf-tmux -p "85%,85%" \
-                --preview "tmux capture-pane -ep -t {}" \
+                --preview "tmux capture-pane -ep -t '={}'" \
                 --preview-window "right:65%" \
                 --header "Tip: Ctrl+d to kill session" \
                 --bind "ctrl-d:reload(tmux kill-session -t {} &&  tmux list-sessions -F '#S' |  grep -v \"^${current_session}\$\" || true)+clear-query"
@@ -22,9 +22,9 @@ main () {
 
     if [[ -z "${TMUX}" ]]
     then
-        tmux attach -t "${session_name}"
+        tmux attach -t "=${session_name}"
     else
-        tmux switch-client -t "${session_name}"
+        tmux switch-client -t "=${session_name}"
     fi
 }
 
