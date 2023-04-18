@@ -5,6 +5,13 @@ main () {
     local path="${1}"
     local session="${2}"
 
+    if [[ "${session}" == "--ask-session" ]]; then
+        local session="$(echo -n "" | fzf-tmux -p --prompt "Enter Session Name: " --no-info --print-query)"
+        if [[ -z "${session}" ]]; then
+            exit 0
+        fi
+    fi
+
     if [[ -z "${path}" ]]; then
         path="${PWD}"
     fi

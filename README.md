@@ -58,7 +58,7 @@ $ ts /path/to/folder
 
 ### tn
 
-No tmux binding - but i like being able to create new sessions smoothly from outside and inside tmux
+The tmux binding is `prefix + C-s`, which a new session in your home folder and asks you for the sessio name
 
 opens a session from the current folder
 
@@ -76,4 +76,10 @@ open a session in selected folder, and grant it the specified session name
 
 ```sh
 $ tn /path/to/folder $session_name
+```
+
+opens a a new session in selected folder, and asks you for the session name
+
+```sh
+$ tn /path/to/folder --ask-session
 ```
