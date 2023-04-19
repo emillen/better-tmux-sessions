@@ -24,13 +24,9 @@ The scripts are meant to be used in hotkeys for tmux, in combination as commands
 
 ### ta
 
-The tmux binding is `prefix + C-a`. You can rebind in your `.tmux.conf` using:
+The tmux binding is `prefix + C-a`.
 
-```sh
-set -g @better-tmux-sessions-ta-binding "A"
-```
-
-show active sessions in fzf - the selected one is opened:
+Show active sessions in fzf - the selected one is opened:
 
 ```sh
 $ ta
@@ -46,11 +42,7 @@ $ ta $session-name
 
 ### ts
 
-The tmux binding is `prefix + C-s`. You can rebind in your `.tmux.conf` using:
-
-```sh
-set -g @better-tmux-sessions-ts-binding "S"
-```
+The tmux binding is `prefix + C-s`.
 
 lets you search your folders in your home directory, using fzf - selected one is opened as a session:
 
@@ -68,11 +60,6 @@ $ ts /path/to/folder
 
 The tmux binding is `prefix + C-s`,
 which a new session in your home folder and asks you for the session name.
-You can rebind in your `.tmux.conf` using:
-
-```sh
-set -g @better-tmux-sessions-tn-binding "N"
-```
 
 opens a session from the current folder
 
@@ -97,3 +84,17 @@ opens a a new session in selected folder, and asks you for the session name
 ```sh
 $ tn /path/to/folder --ask-session
 ```
+
+### Rebind keys
+
+you can do the following to rebind keys
+
+```sh
+set-option -gw @better-tmux-sessions-ta-binding "A"
+set-option -gw @better-tmux-sessions-ts-binding "S"
+set-option -gw @better-tmux-sessions-tn-binding "N"
+
+set -g @plugin 'emillen/better-tmux-sessions'
+```
+
+and then reload tmux

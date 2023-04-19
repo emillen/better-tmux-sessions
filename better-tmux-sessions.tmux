@@ -2,9 +2,9 @@
 # vim: set ft=sh :
 
 # Options from tmux
-ta_binding_option="$(tmux show-option -gwv "@better-tmux-sessions-bind-ta")"
-ts_binding_option="$(tmux show-option -gwv "@better-tmux-sessions-bind-ts")"
-tn_binding_option="$(tmux show-option -gwv "@better-tmux-sessions-bind-tn")"
+ta_binding_option="$(tmux show-option -gwv "@better-tmux-sessions-ta-binding")"
+ts_binding_option="$(tmux show-option -gwv "@better-tmux-sessions-ts-binding")"
+tn_binding_option="$(tmux show-option -gwv "@better-tmux-sessions-tn-binding")"
 
 # Default bindings if option not set
 ta_binding="${ta_binding_option:-"C-a"}"
