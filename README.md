@@ -58,7 +58,7 @@ $ ts /path/to/folder
 
 ### tn
 
-The tmux binding is `prefix + C-s`,
+The tmux binding is `prefix + C-n`,
 which a new session in your home folder and asks you for the session name.
 
 opens a session from the current folder
