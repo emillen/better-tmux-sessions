@@ -24,6 +24,8 @@ The scripts are meant to be used in hotkeys for tmux, in combination as commands
 
 ### ta
 
+![ta](images/ta.png)
+
 The tmux binding is `prefix + C-a`.
 
 Show active sessions in fzf - the selected one is opened:
@@ -42,6 +44,8 @@ $ ta $session-name
 
 ### ts
 
+![ts](images/ts.png)
+
 The tmux binding is `prefix + C-s`.
 
 lets you search your folders in your home directory, using fzf - selected one is opened as a session:
@@ -57,6 +61,8 @@ $ ts /path/to/folder
 ```
 
 ### tn
+
+![tn](images/tn.png)
 
 The tmux binding is `prefix + C-n`,
 which a new session in your home folder and asks you for the session name.
