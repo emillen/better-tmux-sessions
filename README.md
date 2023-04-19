@@ -24,7 +24,11 @@ The scripts are meant to be used in hotkeys for tmux, in combination as commands
 
 ### ta
 
-The tmux binding is `prefix + C-a`.
+The tmux binding is `prefix + C-a`. You can rebind in your `.tmux.conf` using:
+
+```sh
+set -g @better-tmux-sessions-ta-binding "A"
+```
 
 show active sessions in fzf - the selected one is opened:
 
@@ -42,7 +46,11 @@ $ ta $session-name
 
 ### ts
 
-The tmux binding is `prefix + C-s`.
+The tmux binding is `prefix + C-s`. You can rebind in your `.tmux.conf` using:
+
+```sh
+set -g @better-tmux-sessions-ts-binding "S"
+```
 
 lets you search your folders in your home directory, using fzf - selected one is opened as a session:
 
@@ -58,7 +66,13 @@ $ ts /path/to/folder
 
 ### tn
 
-The tmux binding is `prefix + C-s`, which a new session in your home folder and asks you for the sessio name
+The tmux binding is `prefix + C-s`,
+which a new session in your home folder and asks you for the session name.
+You can rebind in your `.tmux.conf` using:
+
+```sh
+set -g @better-tmux-sessions-tn-binding "N"
+```
 
 opens a session from the current folder
 
