@@ -3,7 +3,7 @@
 
 session_exists() {
     local folder_to_session="${1}"
-    tmux has-session -t "=$(basename "${folder_to_session}")"
+    tmux has-session -t "=$(basename "${folder_to_session}")" 2> /dev/null
 }
 
 switch_session() {
