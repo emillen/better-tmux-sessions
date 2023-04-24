@@ -7,7 +7,7 @@ create_or_switch_session () {
 
     cd "${path}"
 
-    tmux new-session -s "${session}" -n "${session}" -d
+    tmux new-session -s "${session}" -d
 
     if [[ -z "${TMUX}" ]]; then
         tmux attach -t "=${session}"

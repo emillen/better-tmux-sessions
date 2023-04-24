@@ -13,7 +13,7 @@ switch_session() {
 
 create_session() {
     local folder_to_session="${1}"
-    tmux new-session -s $(basename "${folder_to_session}") -n $(basename "${folder_to_session}") -d
+    tmux new-session -s $(basename "${folder_to_session}") -d
 }
 
 attach_session() {
