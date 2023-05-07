@@ -83,7 +83,7 @@ EOF
     fi
 
     if [[ -z "${session}" ]]; then
-        local session=$(basename "${path}")
+        local session=$(basename "${path}" | sed 's/[^a-zA-Z0-9]/_/g')
     fi
 
     create_or_switch_session "${path}" "${session}"

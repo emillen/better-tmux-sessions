@@ -1,24 +1,29 @@
 #!/usr/bin/env bash
 # vim: set ft=sh :
 
+get_session_name() {
+    local folder_to_session="${1}"
+    basename "${folder_to_session}" | sed 's/[^a-zA-Z0-9]/_/g'
+}
+
 session_exists() {
     local folder_to_session="${1}"
-    tmux has-session -t "=$(basename "${folder_to_session}")" 2> /dev/null
+    tmux has-session -t "=$(get_session_name "${folder_to_session}")" 2> /dev/null
 }
 
 switch_session() {
     local folder_to_session="${1}"
-    tmux switch-client -t "=$(basename "${folder_to_session}")"
+    tmux switch-client -t "=$(get_session_name "${folder_to_session}")"
 }
 
 create_session() {
     local folder_to_session="${1}"
-    tmux new-session -s $(basename "${folder_to_session}") -d
+    tmux new-session -s $(get_session_name "${folder_to_session}") -d
 }
 
 attach_session() {
     local folder_to_session="${1}"
-    tmux attach -t "=$(basename "${folder_to_session}")"
+    tmux attach -t "=$(get_session_name "${folder_to_session}")"
 }
 
 in_tmux_session() {
