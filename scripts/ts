@@ -3,7 +3,7 @@
 
 get_session_name() {
     local folder_to_session="${1}"
-    basename "${folder_to_session}" | sed 's/[^a-zA-Z0-9]/_/g'
+    basename "${folder_to_session}" | sed 's/[^a-zA-Z0-9-]/_/g'
 }
 
 session_exists() {
