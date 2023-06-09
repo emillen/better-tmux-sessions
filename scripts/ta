@@ -3,11 +3,11 @@
 
 main () {
     local session_name="${1}"
-    local current_session="$( [[ -n $TMUX ]] && tmux display-message -p '#S')"
+    local current_session="$( [[ -n $TMUX ]] && tmux display-message -p '#S' 2>/dev/null)"
 
     if [[ -z "${session_name}" ]]; then
         local session_name=$(
-            tmux list-sessions -F '#S' | grep -v "^${current_session}\$" | \
+            tmux list-sessions -F '#S' 2>/dev/null | grep -v "^${current_session}\$" | \
                 fzf-tmux -p "85%,85%" \
                 --preview "tmux capture-pane -ep -t {}" \
                 --preview-window "right:65%" \
